@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkSphere </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="./src/output.css" rel="stylesheet">
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="m-0 p-0">
@@ -14,7 +15,7 @@
         <!-- list personnel -->
         <section class="bg-gray-200">
             <h2 class="text-center text-2xl font-bold">From</h2>
-            <button class="bg-red-500 mt-2 px-20 pb-1 text-2xl  rounded-[5px]">Ajouter</button>
+            <button id="addWorker" class="bg-red-500 mt-2 px-20 pb-1 text-2xl  rounded-[5px]">Ajouter</button>
         </section>
 
         <section class="relative w-full h-screen">
@@ -38,90 +39,129 @@
         </section>
 
         <!-- form -->
-        <section>
-            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                <div class="bg-white p-6 rounded-2xl shadow-2xl">
+        <section id="form-container" class="font-inter">
+            <div id="employee-modal" class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center ">
 
-                    <div class="flex justify-between">
-                        <h2>Employee Form</h2>
-                        <button>&times;</button>
-                    </div>
-
-                    <!-- Employee Form -->
-                    <form action="">
-                        <!-- Name -->
-                        <div>
-                            <label>Name:</label>
-                            <input type="text" placeholder="Enter your Name">
+                <!-- Scrolle Bar Inside -->
+                <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
+                    <div class="max-h-[90vh] overflow-y-auto p-6">
+                        <div class="flex justify-between mb-4">
+                            <h2 class="text-2xl font-bold text-gray-800">Employee Form</h2>
+                            <button id="close-modal" class="text-gray-950 hover:text-blue-800 text-2xl">&times;</button>
                         </div>
 
-                        <!-- lastname -->
-                        <div>
-                            <label>Lastname:</label>
-                            <input type="text" placeholder="Enter your Lastname">
-                        </div>
-
-                        <!-- Role -->
-                        <div>
-                            <label>Role:</label>
-                            <select id="">
-                                <option value="" disabled selected>Select a role</option>
-                                <option value="">Manager</option>
-                                <option value="">IT Technicians</option>
-                                <option value="">Security Guards</option>
-                                <option value="">Cleaning Staff</option>
-                            </select>
-                        </div>
-
-                        <!-- photo -->
-                        <div>
-                            <label>Photo (URL)</label>
-                            <input type="url">
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label>Email:</label>
-                            <input type="email" placeholder="Enter youe Email">
-                        </div>
-
-                        <!-- Phone -->
-                        <div>
-                            <label for="">Phone:</label>
-                            <input type="tel" placeholder="Enter your Number">
-                        </div>
-
-                        <!-- Experience -->
-                        <div>
-                            <!-- Company Name -->
-                            <div>
-                                <input type="text" placeholder="Company Name">
+                        <!-- Employee Form -->
+                        <form action="">
+                            <!-- Name -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Name:</label><br>
+                                <input
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="text" placeholder="Enter your Name">
                             </div>
 
+                            <!-- lastname -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Lastname:</label>
+                                <input
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="text" placeholder="Enter your Lastname">
+                            </div>
+
+                            <!-- Email -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Email:</label>
+                                <input
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="email" placeholder="Enter youe Email">
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Phone:</label>
+                                <input
+                                    class="w-full text-sm  mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="tel" placeholder="Enter your Number">
+                            </div>
+
+                            <!-- Role -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Role:</label>
+                                <select
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    id="">
+                                    <option value="" disabled selected>Select a role</option>
+                                    <option value="">Manager</option>
+                                    <option value="">IT Technicians</option>
+                                    <option value="">Security Guards</option>
+                                    <option value="">Cleaning Staff</option>
+                                </select>
+                            </div>
+
+                            <!-- photo -->
+                            <div class="mb-4">
+                                <label class="text-sm font-semibold text-gray-800">Photo (URL)</label>
+
+                                <input
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="url" placeholder="https://example.com/photo.jpg">
+
+                            </div>
+
+                            <!-- Experience -->
+                            <div class="mb-4 rounded-lg bg-gray-100 border border-gray-300 px-3 py-3"">
+                                <!-- Company Name -->
+                                <div class=" mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Company Name:</label>
+                                <input
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    type="text" placeholder="Company Name">
+                            </div>
+                            <!-- Experience Role -->
+                            <div class="mb-2">
+                                <label class="text-sm font-semibold text-gray-800">Role:</label>
+                                <select
+                                    class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60 "
+                                    id="">
+                                    <option value="" disabled selected>Select a role</option>
+                                    <option value="">Manager</option>
+                                    <option value="">IT Technicians</option>
+                                    <option value="">Security Guards</option>
+                                    <option value="">Cleaning Staff</option>
+                                </select>
+                            </div>
                             <!-- date -->
-                            <div>
-                                <div>
-                                    <label>From</label>
-                                    <input type="date">
+                            <div class="mb-2 flex items-center gap-4">
+                                <!-- From -->
+                                <div class="flex items-center gap-2 w-full">
+                                    <label class="text-sm font-semibold text-gray-800">From</label>
+                                    <input type="date"
+                                        class="flex-1 text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60">
                                 </div>
-                                <div>
-                                    <label>to</label>
-                                    <input type="date">
+                                <!-- To -->
+                                <div class="flex items-center gap-2 w-full">
+                                    <label class="text-sm font-semibold text-gray-800">To</label>
+                                    <input type="date"
+                                        class="flex-1 text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60">
                                 </div>
+
                             </div>
 
                             <!-- Description -->
                             <div>
-                                <textarea name="" id="" placeholder="Description...""></textarea>
-                        </div>
+                                <label class="text-sm font-semibold text-gray-800">Description:</label>
+                                <textarea rows="4" name="" id=""
+                                    class="w-full text-sm px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
+                                    placeholder="Description..."></textarea>
+                            </div>
+                        </form>
                     </div>
-                    
-                </form>
                 </div>
             </div>
         </section>
 
     </main>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
