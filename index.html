@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkSphere </title>
     <link href="./src/output.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body class="m-0 p-0">
     <main class="grid grid-cols-[20%_80%] h-screen">
-        <!-- form personnel -->
+        <!-- list personnel -->
         <section class="bg-gray-200">
             <h2 class="text-center text-2xl font-bold">From</h2>
             <button class="bg-red-500 mt-2 px-20 pb-1 text-2xl  rounded-[5px]">Ajouter</button>
@@ -36,7 +37,89 @@
             </div>
         </section>
 
+        <!-- form -->
+        <section>
+            <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+                <div class="bg-white p-6 rounded-2xl shadow-2xl">
 
+                    <div class="flex justify-between">
+                        <h2>Employee Form</h2>
+                        <button>&times;</button>
+                    </div>
+
+                    <!-- Employee Form -->
+                    <form action="">
+                        <!-- Name -->
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" placeholder="Enter your Name">
+                        </div>
+
+                        <!-- lastname -->
+                        <div>
+                            <label>Lastname:</label>
+                            <input type="text" placeholder="Enter your Lastname">
+                        </div>
+
+                        <!-- Role -->
+                        <div>
+                            <label>Role:</label>
+                            <select id="">
+                                <option value="" disabled selected>Select a role</option>
+                                <option value="">Manager</option>
+                                <option value="">IT Technicians</option>
+                                <option value="">Security Guards</option>
+                                <option value="">Cleaning Staff</option>
+                            </select>
+                        </div>
+
+                        <!-- photo -->
+                        <div>
+                            <label>Photo (URL)</label>
+                            <input type="url">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label>Email:</label>
+                            <input type="email" placeholder="Enter youe Email">
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="">Phone:</label>
+                            <input type="tel" placeholder="Enter your Number">
+                        </div>
+
+                        <!-- Experience -->
+                        <div>
+                            <!-- Company Name -->
+                            <div>
+                                <input type="text" placeholder="Company Name">
+                            </div>
+
+                            <!-- date -->
+                            <div>
+                                <div>
+                                    <label>From</label>
+                                    <input type="date">
+                                </div>
+                                <div>
+                                    <label>to</label>
+                                    <input type="date">
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div>
+                                <textarea name="" id="" placeholder="Description...""></textarea>
+                        </div>
+                    </div>
+                    
+                </form>
+                </div>
+            </div>
+        </section>
 
     </main>
 </body>
