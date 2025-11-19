@@ -6,41 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkSphere </title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="./src/output.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
 </head>
 
 <body class="m-0 p-0">
-    <main class="grid grid-cols-[20%_80%] h-screen">
+    <main class=" grid grid-cols-[23%_77%] h-screen w-full">
         <!-- list personnel -->
-        <section class="bg-gray-200">
-            <h2 class="text-center text-2xl font-bold">From</h2>
-            <button id="addWorker" class="bg-red-500 mt-2 px-20 pb-1 text-2xl  rounded-[5px]">Ajouter</button>
+        <section class="bg-gray-200 rounded-[10px] p-4 m-2">
+            <h1 class="text-2xl text-center font-bold p-2 mb-2">WorkSphere</h1>
+            <button id="addWorker"
+                class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg mb-4">
+                + Add New Worker
+            </button>
+
+            <!-- Employee -->
+            <div class="flex justify-between items-center bg-gray-100 rounded-[5px] p-2 mb-2">
+                <div class="w-10 h-10">
+                    <img class="w-full h-full object-cover rounded-full" src="/assets/img/profile-photo.jpg" alt="profile">
+                </div>
+                <h3>abdelghafour rami</h3>
+                <button><i class="fa-solid fa-user-minus"></i></button>
+            </div>
+    
         </section>
 
-        <section class="relative w-full h-screen">
+        <section class="h-full flex items-center pr-2">
+            <div class="relative w-full h-[94vh] shadow-lg">
 
-            <img src="./assets/img/plan.jpg" alt="worksphere" class="w-full h-full absolute ">
+                <img src="./assets/img/plan.jpg" alt="worksphere" class="w-full h-full absolute ">
 
-            <div class="absolute inset-0 grid grid-cols-[38.2%_16%_23%_22.6%] grid-rows-[34%_32.8%_33.1%]">
+                <div class="absolute inset-0 grid grid-cols-[38.2%_16%_23%_22.6%] grid-rows-[34%_32.8%_33.1%]">
 
-                <div class="bg-green-500/20 border-r-8 border-b-8"></div>
-                <div class="bg-yellow-300/20 row-span-3 "></div>
-                <div class="bg-red-400/20 border-b-8 border-l-8 border-r-8 "></div>
-                <div class="bg-red-400/20 border-b-8"></div>
+                    <div class="bg-green-500/20 border-r-8 border-b-8"></div>
+                    <div class="bg-yellow-300/20 row-span-3 "></div>
+                    <div class="bg-red-400/20 border-b-8 border-l-8 border-r-8 "></div>
+                    <div class="bg-red-400/20 border-b-8"></div>
 
-                <div class="bg-green-500/20 row-span-2 border-r-8"></div>
-                <div class="bg-yellow-300/20 col-span-2"></div>
+                    <div class="bg-green-500/20 row-span-2 border-r-8"></div>
+                    <div class="bg-yellow-300/20 col-span-2"></div>
 
-                <div class="bg-red-400/20 border-l-8 border-t-8 border-r-8"></div>
-                <div class="bg-red-400/20 border-t-8 "></div>
-
+                    <div class="bg-red-400/20 border-l-8 border-t-8 border-r-8"></div>
+                    <div class="bg-red-400/20 border-t-8 "></div>
+                </div>
+            </div>
             </div>
         </section>
 
         <!-- form -->
         <section id="form-container" class="font-inter">
-            <div id="employee-modal" class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center ">
+            <div id="employee-modal" class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden">
 
                 <!-- Scrolle Bar Inside -->
                 <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden">
@@ -100,11 +117,12 @@
 
                             <!-- photo -->
                             <div class="mb-4">
-                                <div class="mt-3 w-32 h-32 bg-gray-200 border border-gray-300 rounded-full flex justify-start">
-                                    <img id="photo-preview" src="./assets/img/photo-profile.JPG"
+                                <label class="text-sm font-semibold text-gray-800">Photo (URL)</label>
+                                <div
+                                    class="mt-3 w-32 h-32 bg-gray-200 border border-gray-300 rounded-full flex justify-start">
+                                    <img id="photo-preview" src="./assets/img/profile-photo.jpg"
                                         class="w-full h-full object-cover rounded-full">
                                 </div>
-                                <label class="text-sm font-semibold text-gray-800">Photo (URL)</label>
 
                                 <input
                                     class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
