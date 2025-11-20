@@ -22,3 +22,20 @@ modal.addEventListener("click", (e) => {
   }
 });
 
+// Conference Room: add static worker on "+"
+const addBtnConference = document.getElementById("addBtn-conference");
+const conferenceWorkers = document.getElementById("conference-workers");
+
+let confCounter = 1;
+
+addBtnConference.addEventListener("click", () => {
+  const worker = document.createElement("div");
+
+  worker.className =
+    "w-10 h-10 rounded-f[5px] bg-blue-600/80 text-[10px] text-white shadow";
+
+  worker.textContent = "Worker " + confCounter;
+  confCounter++;
+
+  conferenceWorkers.appendChild(worker);
+});
