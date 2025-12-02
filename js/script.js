@@ -21,6 +21,21 @@ modal.addEventListener("click", e => {
 });
 
 
+// ============= photo preview =============
+const photoUrl = document.getElementById("photo-url");
+const photoPreview = document.getElementById("photo-preview");
+
+photoUrl.addEventListener("input", () => {
+  const url = photoUrl.value.trim();
+
+  if (url === "") {
+    photoPreview.src = "./assets/img/profile-photo.jpg"; // default
+  } else {
+    photoPreview.src = url;
+  }
+});
+
+
 // ============= add new experience =============
 const addExperienceBtn = document.getElementById('add-experience-btn');
 const experience = document.getElementById('experience-container');

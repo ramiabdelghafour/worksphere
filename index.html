@@ -118,15 +118,16 @@
                 <div class="max-h-[90vh] overflow-y-auto p-6">
                     <div class="flex justify-between mb-4">
                         <h2 class="text-2xl font-bold text-gray-800">Employee Form</h2>
-                        <button id="close-modal" class="text-gray-950 hover:text-blue-800 text-2xl cursor-pointer">&times;</button>
+                        <button id="close-modal"
+                            class="text-gray-950 hover:text-blue-800 text-2xl cursor-pointer">&times;</button>
                     </div>
 
                     <!-- Employee Form -->
-                    <form action="">
+                    <form id="form" action="">
                         <!-- Name -->
                         <div class="mb-2">
                             <label class="text-sm font-semibold text-gray-800">Name:</label><br>
-                            <input
+                            <input id="first-name"
                                 class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                 type="text" placeholder="Enter your Name">
                         </div>
@@ -134,7 +135,7 @@
                         <!-- lastname -->
                         <div class="mb-2">
                             <label class="text-sm font-semibold text-gray-800">Lastname:</label>
-                            <input
+                            <input id="last-name"
                                 class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                 type="text" placeholder="Enter your Lastname">
                         </div>
@@ -142,7 +143,7 @@
                         <!-- Email -->
                         <div class="mb-2">
                             <label class="text-sm font-semibold text-gray-800">Email:</label>
-                            <input
+                            <input id="email"
                                 class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                 type="email" placeholder="Enter youe Email">
                         </div>
@@ -150,7 +151,7 @@
                         <!-- Phone -->
                         <div class="mb-2">
                             <label class="text-sm font-semibold text-gray-800">Phone:</label>
-                            <input
+                            <input id="phone"
                                 class="w-full text-sm  mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                 type="tel" placeholder="Enter your Number">
                         </div>
@@ -158,9 +159,8 @@
                         <!-- Role -->
                         <div class="mb-2">
                             <label class="text-sm font-semibold text-gray-800">Role:</label>
-                            <select
-                                class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
-                                id="">
+                            <select id="role"
+                                class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60">
                                 <option disabled selected>Select a role</option>
                                 <option>Receptionist</option>
                                 <option>IT Technician</option>
@@ -176,13 +176,12 @@
                             <div
                                 class="mt-3 w-32 h-32 bg-gray-200 border border-gray-300 rounded-full flex justify-start">
                                 <img id="photo-preview" src="./assets/img/profile-photo.jpg"
-                                    class="w-full h-full object-cover rounded-full">
+                                    class="w-full h-full object-cover rounded-full" alt="profile image">
                             </div>
                             <label class="text-sm text-gray-800">URL:</label>
-                            <input
+                            <input id="photo-url"
                                 class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                 type="url" placeholder="https://example.com/photo.jpg">
-
                         </div>
 
                         <!-- Experience -->
