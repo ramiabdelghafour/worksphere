@@ -26,6 +26,7 @@ const addExperienceBtn = document.getElementById('add-experience-btn');
 const experience = document.getElementById('experience-container');
 
 addExperienceBtn.addEventListener('click', () => {
-    const clone = experience.cloneNode(true);
+  //firstElementChild for select one element if they are multiple
+    const clone = experience.firstElementChild.cloneNode(true);
     experience.appendChild(clone);
 });
