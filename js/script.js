@@ -125,7 +125,7 @@ form.addEventListener("submit", (e) => {
     photo: photo || "./assets/img/profile-photo.jpg",
     experiences,
     zone: null,
-    assigned: false,
+    assigned: false
   };
 
   // save to local storage
@@ -150,6 +150,72 @@ form.addEventListener("submit", (e) => {
   // apply it here to show new employee add without reloading page
   renderEmployees();
 });
+
+// ============= add employees to localStorage =============
+let ExistingEmployees = [
+  {
+    id: Date.now() + 1,
+    firstName: "Youssef",
+    lastName: "Sabiri",
+    email: "youssef.elamrani@example.com",
+    phone: "0612345678",
+    role: "IT Technician",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 2,
+    firstName: "Sami",
+    lastName: "Rguibi",
+    email: "khadija.bennani@example.com",
+    phone: "0678123456",
+    role: "Receptionist",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 3,
+    firstName: "Mohammed",
+    lastName: "Alaoui",
+    email: "mohammed.taleb@example.com",
+    phone: "0654321987",
+    role: "Security Agent",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 4,
+    firstName: "Salma",
+    lastName: "Farsi",
+    email: "salma.idrissi@example.com",
+    phone: "0667788990",
+    role: "Manager",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 5,
+    firstName: "Hamza",
+    lastName: "Buissane",
+    email: "hamza.boukhriss@example.com",
+    phone: "0622334455",
+    role: "Cleaner",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  }
+];
+
+localStorage.setItem("employees", JSON.stringify(ExistingEmployees));
 
 // ============= render employees from localStorage =============
 const employeeList = document.getElementById("employee-list");
