@@ -8,18 +8,15 @@ addemployeeBtn.addEventListener("click", () => {
   modal.classList.remove("hidden");
 });
 
-// hide modal function
-const closeModal = () => modal.classList.add("hidden");
-
 // close modal
 closeModalBtn.addEventListener("click", () => {
-  closeModal();
+  modal.classList.add("hidden");
 });
 
-// hide modal
+// close modal from backgournd
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
-    closeModal();
+    modal.classList.add("hidden");
   }
 });
 
@@ -87,7 +84,7 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  if (photo !== "" && !urlRegex.test(photo)) {
+  if (!urlRegex.test(photo)) {
     alert("please enter a valid photo URL");
     return;
   }
@@ -125,7 +122,7 @@ form.addEventListener("submit", (e) => {
     photo: photo || "./assets/img/profile-photo.jpg",
     experiences,
     zone: null,
-    assigned: false
+    assigned: false,
   };
 
   // save to local storage
@@ -136,16 +133,14 @@ form.addEventListener("submit", (e) => {
   //test add employee
   console.log(employee);
 
-  
   form.reset();
-  photoPreview.src = "./assets/img/profile-photo.jpg";
 
   // remove duplicate experiences holder
   while (experience.children.length > 1) {
     experience.lastElementChild.remove();
   }
 
-  closeModal();
+  modal.classList.add("hidden");
 
   // apply it here to show new employee add without reloading page
   renderEmployees();
@@ -157,7 +152,7 @@ let ExistingEmployees = [
     id: Date.now() + 1,
     firstName: "Youssef",
     lastName: "Sabiri",
-    email: "youssef.elamrani@example.com",
+    email: "youssef.sabiri@example.com",
     phone: "0612345678",
     role: "IT Technician",
     photo: "https://avatar.iran.liara.run/public",
@@ -169,7 +164,7 @@ let ExistingEmployees = [
     id: Date.now() + 2,
     firstName: "Sami",
     lastName: "Rguibi",
-    email: "khadija.bennani@example.com",
+    email: "khadija.rguibi@example.com",
     phone: "0678123456",
     role: "Receptionist",
     photo: "https://avatar.iran.liara.run/public",
@@ -181,9 +176,9 @@ let ExistingEmployees = [
     id: Date.now() + 3,
     firstName: "Mohammed",
     lastName: "Alaoui",
-    email: "mohammed.taleb@example.com",
+    email: "mohammed.alaoui@example.com",
     phone: "0654321987",
-    role: "Security Agent",
+    role: "Security Guard",
     photo: "https://avatar.iran.liara.run/public",
     experiences: [],
     zone: null,
@@ -193,7 +188,7 @@ let ExistingEmployees = [
     id: Date.now() + 4,
     firstName: "Salma",
     lastName: "Farsi",
-    email: "salma.idrissi@example.com",
+    email: "salma.farsi@example.com",
     phone: "0667788990",
     role: "Manager",
     photo: "https://avatar.iran.liara.run/public",
@@ -203,16 +198,40 @@ let ExistingEmployees = [
   },
   {
     id: Date.now() + 5,
-    firstName: "Hamza",
-    lastName: "Buissane",
-    email: "hamza.boukhriss@example.com",
+    firstName: "Houssam",
+    lastName: "Arkhis",
+    email: "houssam.arkhis@example.com",
     phone: "0622334455",
     role: "Cleaner",
     photo: "https://avatar.iran.liara.run/public",
     experiences: [],
     zone: null,
     assigned: false,
-  }
+  },
+  {
+    id: Date.now() + 6,
+    firstName: "Houssam",
+    lastName: "Arkhis",
+    email: "houssam.arkhis@example.com",
+    phone: "0622334455",
+    role: "Cleaner",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 7,
+    firstName: "Houssam",
+    lastName: "Arkhis",
+    email: "houssam.arkhis@example.com",
+    phone: "0622334455",
+    role: "Other",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
 ];
 
 localStorage.setItem("employees", JSON.stringify(ExistingEmployees));
@@ -223,15 +242,15 @@ const employeeList = document.getElementById("employee-list");
 const renderEmployees = () => {
   const employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
-  employeeList.innerHTML = ""; 
+  employeeList.innerHTML = "";
 
-  employees.forEach(e => {
-    const card = document.createElement("div");
-    card.className =
-      "flex justify-between items-center bg-gray-100 rounded-[5px] p-2 mb-2";
-    card.dataset.id = e.id;
-
-    card.innerHTML = `
+  employees.forEach((e) => {
+    if (e.assigned === false) {
+      const card = document.createElement("div");
+      card.className =
+        "flex justify-between items-center bg-gray-100 rounded-[5px] p-2 mb-2";
+      card.dataset.id = e.id;
+      card.innerHTML = `
       <div class="w-10 h-10">
         <img class="w-full h-full object-cover rounded-full"
              src="${e.photo}"
@@ -244,8 +263,62 @@ const renderEmployees = () => {
       <button><i class="fa-solid fa-user-minus cursor-pointer"></i></button>
     `;
 
-    employeeList.appendChild(card);
+      employeeList.appendChild(card);
+    }
   });
 };
-
 renderEmployees();
+
+
+
+// ============= render conference room to list aside=============
+const conferenceContainer = document.getElementById("conference-employees");
+
+function renderConference() {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  conferenceContainer.innerHTML = "";
+
+  const inConference = employees.filter((e) => e.zone === "conference");
+
+  inConference.forEach((e) => {
+    const card = document.createElement("div");
+    card.className =
+      "w-40 h-10 rounded-[5px] bg-gray-100 text-[10px] text-black shadow flex justify-between items-center p-3";
+
+    card.innerHTML = `
+      <div class="w-8 h-8">
+        <img class="w-full h-full object-cover rounded-full"
+            src="${e.photo}" alt="profile">
+      </div>
+      <div>
+        <p class="font-bold text-sm">${e.firstName}</p>
+        <p class="text-sm">${e.role}</p>
+      </div>
+      <button data-id="${e.id}">
+        <i class="fa-solid fa-x cursor-pointer text-red-600 text-[14px]"></i>
+      </button>
+    `;
+
+    // unassign from conference
+    card.querySelector("button").addEventListener("click", () => {
+      unassignFromConference(e.id);
+    });
+
+    conferenceContainer.appendChild(card);
+  });
+}
+
+function unassignFromConference(id) {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+  const index = employees.findIndex((e) => e.id === id);
+  if (index === -1) return;
+
+  employees[index].assigned = false;
+  employees[index].zone = null;
+
+  localStorage.setItem("employees", JSON.stringify(employees));
+  renderEmployees();
+  renderConference();
+}
+
