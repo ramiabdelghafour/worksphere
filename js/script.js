@@ -1,22 +1,25 @@
 // ============= modal =============
-const addWorkerBtn = document.getElementById("addWorker");
+const addemployeeBtn = document.getElementById("add-employee");
 const modal = document.getElementById("employee-modal");
 const closeModalBtn = document.getElementById("close-modal");
 
 // open modale
-addWorkerBtn.addEventListener("click", () => {
+addemployeeBtn.addEventListener("click", () => {
   modal.classList.remove("hidden");
 });
 
+// hide modal function
+const closeModal = () => modal.classList.add("hidden");
+
 // close modal
 closeModalBtn.addEventListener("click", () => {
-  modal.classList.add("hidden");
+  closeModal();
 });
 
 // hide modal
 modal.addEventListener("click", (e) => {
   if (e.target === modal) {
-    modal.classList.add("hidden");
+    closeModal();
   }
 });
 
@@ -28,7 +31,7 @@ photoUrl.addEventListener("input", () => {
   const url = photoUrl.value.trim();
 
   if (url === "") {
-    photoPreview.src = "./assets/img/profile-photo.jpg"; // default
+    photoPreview.src = "./assets/img/profile-photo.jpg";
   } else {
     photoPreview.src = url;
   }
@@ -51,8 +54,8 @@ form.addEventListener("submit", (e) => {
   //non refresh page
   e.preventDefault();
 
-  const firstName = document.getElementById("first-name").value.trim();
-  const lastName = document.getElementById("last-name").value.trim();
+  const firstName = document.getElementById("first-name").value;
+  const lastName = document.getElementById("last-name").value;
   const email = document.getElementById("email").value.trim();
   const phone = document.getElementById("phone").value.trim();
   const role = document.getElementById("role").value;
@@ -64,6 +67,82 @@ form.addEventListener("submit", (e) => {
   const phoneRegex = /^[0-9+\s\-]{8,15}$/;
   const urlRegex = /^https?:\/\/.+/;
 
+  if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+    alert("please enter a valid first and last name");
+    return;
+  }
 
-  
+  if (!emailRegex.test(email)) {
+    alert("please enter a valid email");
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    alert("please enter a valid phonenumber");
+    return;
+  }
+
+  if (role === "Select a role") {
+    alert("please select a role");
+    return;
+  }
+
+  if (photo !== "" && !urlRegex.test(photo)) {
+    alert("please enter a valid photo URL");
+    return;
+  }
+
+  // experience
+  const experiences = [];
+  const divs = experience.querySelectorAll("#experience-modal");
+
+  divs.forEach((div) => {
+    const company = div.querySelector("[data-company]").value;
+    const roleExp = div.querySelector("[data-roleExp]").value;
+    const from = div.querySelector("[data-from]").value;
+    const to = div.querySelector("[data-to]").value;
+    const desc = div.querySelector("[data-desc]").value;
+
+    if (from && to && new Date(from) > new Date(to)) {
+      alert("the start date must be before end date");
+      return;
+    }
+
+    // push only if not empty
+    if (company || desc || from || to) {
+      experiences.push({ company, roleExp, from, to, desc });
+    }
+  });
+
+  // employee object
+  const employee = {
+    id: Date.now(),
+    firstName,
+    lastName,
+    email,
+    phone,
+    role,
+    photo: photo || "./assets/img/profile-photo.jpg",
+    experiences,
+    zone: null,
+    assigned: false,
+  };
+
+  // save to local storage
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+  employees.push(employee);
+  localStorage.setItem("employees", JSON.stringify(employees));
+
+  //test add employee
+  console.log("Saved worker:", employee);
+
+  form.reset();
+  photoPreview.src = "./assets/img/profile-photo.jpg";
+
+  //remove duplicate experiences holder
+  while (experience.children.length > 1) {
+    experience.lastElementChild.remove();
+  }
+
+  closeModal();
 });

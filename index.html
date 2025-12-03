@@ -18,9 +18,9 @@
         <!-- list personnel -->
         <section class="bg-gray-200 rounded-[10px] p-4 m-2">
             <h1 class="text-2xl text-center font-bold p-2 mb-2">WorkSphere</h1>
-            <button id="addWorker"
+            <button id="add-employee"
                 class="w-full cursor-pointer bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg mb-4">
-                + Add New Worker
+                + Add New Employee
             </button>
 
             <!-- Employees -->
@@ -186,20 +186,19 @@
 
                         <!-- Experience -->
                         <div id="experience-container">
-                            <div class="mb-4 rounded-lg bg-gray-100 border border-gray-300 px-3 py-3">
+                            <div id="experience-modal" class="mb-4 rounded-lg bg-gray-100 border border-gray-300 px-3 py-3">
                                 <!-- Company Name -->
                                 <div class=" mb-2">
                                     <label class="text-sm font-semibold text-gray-800">Company Name:</label>
-                                    <input
+                                    <input data-company
                                         class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                         type="text" placeholder="Company Name">
                                 </div>
                                 <!-- Experience Role -->
                                 <div class="mb-2">
                                     <label class="text-sm font-semibold text-gray-800">Role:</label>
-                                    <select
-                                        class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60 "
-                                        id="">
+                                    <select data-roleExp
+                                        class="w-full text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60 ">
                                         <option disabled selected>Select a role</option>
                                         <option>Receptionist</option>
                                         <option>IT Technician</option>
@@ -213,20 +212,20 @@
                                     <!-- From -->
                                     <div class="flex items-center gap-2 w-full">
                                         <label class="text-sm font-semibold text-gray-800">From</label>
-                                        <input type="date"
+                                        <input data-from type="date"
                                             class="flex-1 text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60">
                                     </div>
                                     <!-- To -->
                                     <div class="flex items-center gap-2 w-full">
                                         <label class="text-sm font-semibold text-gray-800">To</label>
-                                        <input type="date"
+                                        <input data-to type="date"
                                             class="flex-1 text-sm mt-1 px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60">
                                     </div>
                                 </div>
                                 <!-- Description -->
                                 <div>
                                     <label class="text-sm font-semibold text-gray-800">Description:</label>
-                                    <textarea rows="4" name="" id=""
+                                    <textarea rows="4" data-desc
                                         class="w-full text-sm px-3 py-2 border rounded border-black/40 focus:outline-none focus:border-2 focus:border-black/60"
                                         placeholder="Description..."></textarea>
                                 </div>
