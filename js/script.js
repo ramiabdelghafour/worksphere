@@ -14,12 +14,11 @@ closeModalBtn.addEventListener("click", () => {
 });
 
 // hide modal
-modal.addEventListener("click", e => {
+modal.addEventListener("click", (e) => {
   if (e.target === modal) {
     modal.classList.add("hidden");
   }
 });
-
 
 // ============= photo preview =============
 const photoUrl = document.getElementById("photo-url");
@@ -35,13 +34,36 @@ photoUrl.addEventListener("input", () => {
   }
 });
 
-
 // ============= add new experience =============
-const addExperienceBtn = document.getElementById('add-experience-btn');
-const experience = document.getElementById('experience-container');
+const addExperienceBtn = document.getElementById("add-experience-btn");
+const experience = document.getElementById("experience-container");
 
-addExperienceBtn.addEventListener('click', () => {
+addExperienceBtn.addEventListener("click", () => {
   //firstElementChild for select one element if they are multiple
-    const clone = experience.firstElementChild.cloneNode(true);
-    experience.appendChild(clone);
+  const clone = experience.firstElementChild.cloneNode(true);
+  experience.appendChild(clone);
+});
+
+// ============= submit values =============
+const form = document.getElementById("form");
+
+form.addEventListener("submit", (e) => {
+  //non refresh page
+  e.preventDefault();
+
+  const firstName = document.getElementById("first-name").value.trim();
+  const lastName = document.getElementById("last-name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const role = document.getElementById("role").value;
+  const photo = document.getElementById("photo-url").value.trim();
+
+  // REGEX validation
+  const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9+\s\-]{8,15}$/;
+  const urlRegex = /^https?:\/\/.+/;
+
+
+  
 });
