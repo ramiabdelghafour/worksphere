@@ -348,7 +348,53 @@ function renderConference() {
   });
 }
 
+//unsign function
+function unassignEmployee(id) {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
+  const index = employees.findIndex((e) => e.id === id);
+  if (index === -1) return;
+
+  //store to oldzone before turning the zone to null
+  const oldZone = employees[index].zone;
+
+  employees[index].assigned = false;
+  employees[index].zone = null;
+
+  localStorage.setItem("employees", JSON.stringify(employees));
+
+  renderEmployees();
+
+  if (oldZone === "server") renderServer();
+  if (oldZone === "security") renderSecurity();
+  if (oldZone === "reception") renderReception();
+  if (oldZone === "conference") renderConference();
+  if (oldZone === "staff") renderStaff();
+  if (oldZone === "archive") renderArchive();
+}
+
+// assign fucntion for all rooms
+function assignEmployee(id, zone) {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  const index = employees.findIndex((e) => e.id === id);
+  if (index === -1) return; // employee not found
+
+  employees[index].assigned = true;
+  employees[index].zone = zone;
+
+  localStorage.setItem("employees", JSON.stringify(employees));
+
+  renderEmployees();
+  if (zone === "server") renderServer();
+  if (zone === "security") renderSecurity();
+  if (zone === "reception") renderReception();
+  if (zone === "conference") renderConference();
+  if (zone === "staff") renderStaff();
+  if (zone === "archive") renderArchive();
+
+  roomModal.classList.add("hidden");
+}
 
 // ============= conference selection list modal =============
 const conferenceAddBtn = document.getElementById("addBtn-conference");
@@ -405,31 +451,9 @@ conferenceAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-// assign fucntion for all rooms
-function assignEmployee(id, zone) {
-  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
-  const index = employees.findIndex((e) => e.id === id);
-  if (index === -1) return; // employee not found
-
-  employees[index].assigned = true;
-  employees[index].zone = zone;
-
-  localStorage.setItem("employees", JSON.stringify(employees));
-
-  renderEmployees();
-  if (zone === "server") renderServer();
-  if (zone === "security") renderSecurity();
-  if (zone === "reception") renderReception();
-  if (zone === "conference") renderConference();
-  if (zone === "staff") renderStaff();
-  if (zone === "archive") renderArchive();
-
-  roomModal.classList.add("hidden");
-}
 
 // ============= render server room =============
-
 const serverContainer = document.getElementById("server-employees");
 
 function renderServer() {
@@ -459,25 +483,13 @@ function renderServer() {
     `;
 
     card.querySelector("button").addEventListener("click", () => {
-      unassignFromServer(e.id);
+      unassignEmployee(e.id);
     });
 
     serverContainer.appendChild(card);
   });
 }
 
-function unassignFromServer(id) {
-  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-  const index = employees.findIndex((e) => e.id === id);
-  if (index === -1) return;
-
-  employees[index].assigned = false;
-  employees[index].zone = null;
-
-  localStorage.setItem("employees", JSON.stringify(employees));
-  renderEmployees();
-  renderServer();
-}
 
 // ============= server selection list modal =============
 const serverAddBtn = document.getElementById("addBtn-server");
