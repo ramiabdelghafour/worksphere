@@ -210,8 +210,8 @@ let ExistingEmployees = [
   },
   {
     id: Date.now() + 6,
-    firstName: "Houssam",
-    lastName: "Arkhis",
+    firstName: "Fatima",
+    lastName: "Lbyad",
     email: "houssam.arkhis@example.com",
     phone: "0622334455",
     role: "Cleaner",
@@ -222,8 +222,8 @@ let ExistingEmployees = [
   },
   {
     id: Date.now() + 7,
-    firstName: "Houssam",
-    lastName: "Arkhis",
+    firstName: "Fouzia",
+    lastName: "Fawzi",
     email: "houssam.arkhis@example.com",
     phone: "0622334455",
     role: "Other",
@@ -232,6 +232,30 @@ let ExistingEmployees = [
     zone: null,
     assigned: false,
   },
+  {
+    id: Date.now() + 8,
+    firstName: "Amine",
+    lastName: "Ali",
+    email: "youssef.sabiri@example.com",
+    phone: "0612345678",
+    role: "IT Technician",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  },
+  {
+    id: Date.now() + 3,
+    firstName: "Ali",
+    lastName: "Med",
+    email: "mohammed.alaoui@example.com",
+    phone: "0654321987",
+    role: "Security Guard",
+    photo: "https://avatar.iran.liara.run/public",
+    experiences: [],
+    zone: null,
+    assigned: false,
+  }
 ];
 
 localStorage.setItem("employees", JSON.stringify(ExistingEmployees));
@@ -268,8 +292,6 @@ const renderEmployees = () => {
   });
 };
 renderEmployees();
-
-
 
 // ============= render conference room to list aside=============
 const conferenceContainer = document.getElementById("conference-employees");
@@ -322,3 +344,88 @@ function unassignFromConference(id) {
   renderConference();
 }
 
+// ============= conference selection modal =============
+const roomModal = document.getElementById("room-modal");
+const roomCloseBtn = document.getElementById("close-room-modal");
+const roomList = document.getElementById("room-list");
+const conferenceAddBtn = document.getElementById("addBtn-conference");
+
+// close modal (X)
+roomCloseBtn.addEventListener("click", () => {
+  roomModal.classList.add("hidden");
+});
+
+// close modal from backgournd
+roomModal.addEventListener("click", (e) => {
+  if (e.target === roomModal) {
+    roomModal.classList.add("hidden");
+  }
+});
+
+// add employee to conference room
+conferenceAddBtn.addEventListener("click", () => {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  const validRole = ["Manager", "Cleaner", "Other"];
+  const available = employees.filter(
+    (e) => validRole.includes(e.role) && !e.assigned
+  );
+
+  // conference limite employee check
+  const setInRoom = employees.filter((e) => e.zone === "conference").length;
+  if (setInRoom >= 4) {
+    alert("Room is full");
+    return;
+  }
+
+  // fill the modal list
+  roomList.innerHTML = "";
+
+  available.forEach((e) => {
+    const div = document.createElement("div");
+    div.className =
+      "flex items-center justify-between bg-gray-100 rounded-lg p-2 text-[11px]";
+
+    div.innerHTML = `
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8">
+          <img class="w-full h-full object-cover rounded-full"
+              src="${e.photo}" alt="profile">
+        </div>
+        <div>
+          <p class="font-bold text-xs">${e.firstName} ${e.lastName}</p>
+          <p class="text-[10px] text-gray-600">${e.role}</p>
+        </div>
+      </div>
+      <button class="bg-green-500 hover:bg-green-600 text-white text-[10px] px-2 py-1 rounded"
+              data-id="${e.id}">
+        Add
+      </button>
+    `;
+
+    // when clicking add
+    div.querySelector("button").addEventListener("click", () => {
+      assignToConference(e.id);
+    });
+
+    roomList.appendChild(div);
+  });
+
+  roomModal.classList.remove("hidden");
+});
+
+function assignToConference(id) {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  const index = employees.findIndex((e) => e.id === id);
+
+  employees[index].assigned = true;
+  employees[index].zone = "conference";
+
+  localStorage.setItem("employees", JSON.stringify(employees));
+
+  // refresh UI
+  renderEmployees();
+  renderConference();
+  roomModal.classList.add("hidden");
+}
