@@ -255,7 +255,7 @@ let ExistingEmployees = [
     experiences: [],
     zone: null,
     assigned: false,
-  }
+  },
 ];
 
 localStorage.setItem("employees", JSON.stringify(ExistingEmployees));
@@ -310,7 +310,6 @@ roomModal.addEventListener("click", (e) => {
   }
 });
 
-
 // ============= render conference room =============
 const conferenceContainer = document.getElementById("conference-employees");
 
@@ -342,25 +341,14 @@ function renderConference() {
 
     // unassign from conference
     card.querySelector("button").addEventListener("click", () => {
-      unassignFromConference(e.id);
+      unassignEmployee(e.id);
     });
 
     conferenceContainer.appendChild(card);
   });
 }
 
-function unassignFromConference(id) {
-  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-  const index = employees.findIndex((e) => e.id === id);
-  if (index === -1) return;
 
-  employees[index].assigned = false;
-  employees[index].zone = null;
-
-  localStorage.setItem("employees", JSON.stringify(employees));
-  renderEmployees();
-  renderConference();
-}
 
 // ============= conference selection list modal =============
 const conferenceAddBtn = document.getElementById("addBtn-conference");
@@ -408,7 +396,7 @@ conferenceAddBtn.addEventListener("click", () => {
 
     // when clicking add
     div.querySelector("button").addEventListener("click", () => {
-      assignToConference(e.id);
+      assignEmployee(e.id, "conference");
     });
 
     roomList.appendChild(div);
@@ -417,22 +405,28 @@ conferenceAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-function assignToConference(id) {
+// assign fucntion for all rooms
+function assignEmployee(id, zone) {
   const employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
   const index = employees.findIndex((e) => e.id === id);
+  if (index === -1) return; // employee not found
 
   employees[index].assigned = true;
-  employees[index].zone = "conference";
+  employees[index].zone = zone;
 
   localStorage.setItem("employees", JSON.stringify(employees));
 
-  // refresh 
   renderEmployees();
-  renderConference();
+  if (zone === "server") renderServer();
+  if (zone === "security") renderSecurity();
+  if (zone === "reception") renderReception();
+  if (zone === "conference") renderConference();
+  if (zone === "staff") renderStaff();
+  if (zone === "archive") renderArchive();
+
   roomModal.classList.add("hidden");
 }
-
 
 // ============= render server room =============
 
@@ -528,7 +522,7 @@ serverAddBtn.addEventListener("click", () => {
     `;
 
     div.querySelector("button").addEventListener("click", () => {
-      assignToServer(e.id);
+      assignEmployee(e.id, "server");
     });
 
     roomList.appendChild(div);
@@ -536,18 +530,3 @@ serverAddBtn.addEventListener("click", () => {
 
   roomModal.classList.remove("hidden");
 });
-
-function assignToServer(id) {
-  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
-
-  const index = employees.findIndex((e) => e.id === id);
-
-  employees[index].assigned = true;
-  employees[index].zone = "server";
-
-  localStorage.setItem("employees", JSON.stringify(employees));
-
-  renderEmployees();
-  renderServer();
-  roomModal.classList.add("hidden");
-}
