@@ -15,26 +15,17 @@
 <body class="m-0 p-0">
     <main class=" grid grid-cols-[23%_77%] h-screen w-full">
 
-        <!-- list personnel -->
-        <section class="bg-gray-200 rounded-[10px] p-4 m-2">
+        <!-- employees -->
+        <section class="bg-gray-200 rounded-[10px] p-4 m-2 overflow-y-auto">
             <h1 class="text-2xl text-center font-bold p-2 mb-2">WorkSphere</h1>
             <button id="add-employee"
                 class="w-full cursor-pointer bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg mb-4">
                 + Add New Employee
             </button>
 
-            <!-- Employees -->
-            <div class="flex justify-between items-center bg-gray-100 rounded-[5px] p-2 mb-2">
-                <div class="w-10 h-10">
-                    <img class="w-full h-full object-cover rounded-full" src="/assets/img/profile-photo.jpg"
-                        alt="profile">
-                </div>
-                <div class="flex-col text-center">
-                    <h3 class="font-bold">abdelghafour rami</h3>
-                    <p>IT manager</p>
-                </div>
-                <button><i class="fa-solid fa-user-minus cursor-pointer"></i></button>
-            </div>
+            <!-- Employees list-->
+            <div id="employee-list"></div>
+            
         </section>
 
         <!-- Plan -->
@@ -186,7 +177,8 @@
 
                         <!-- Experience -->
                         <div id="experience-container">
-                            <div id="experience-modal" class="mb-4 rounded-lg bg-gray-100 border border-gray-300 px-3 py-3">
+                            <div id="experience-modal"
+                                class="mb-4 rounded-lg bg-gray-100 border border-gray-300 px-3 py-3">
                                 <!-- Company Name -->
                                 <div class=" mb-2">
                                     <label class="text-sm font-semibold text-gray-800">Company Name:</label>

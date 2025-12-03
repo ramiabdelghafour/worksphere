@@ -134,15 +134,52 @@ form.addEventListener("submit", (e) => {
   localStorage.setItem("employees", JSON.stringify(employees));
 
   //test add employee
-  console.log("Saved worker:", employee);
+  console.log(employee);
 
+  
   form.reset();
   photoPreview.src = "./assets/img/profile-photo.jpg";
 
-  //remove duplicate experiences holder
+  // remove duplicate experiences holder
   while (experience.children.length > 1) {
     experience.lastElementChild.remove();
   }
 
   closeModal();
+
+  // apply it here to show new employee add without reloading page
+  renderEmployees();
 });
+
+// ============= render employees from localStorage =============
+const employeeList = document.getElementById("employee-list");
+
+const renderEmployees = () => {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  employeeList.innerHTML = ""; 
+
+  employees.forEach(e => {
+    const card = document.createElement("div");
+    card.className =
+      "flex justify-between items-center bg-gray-100 rounded-[5px] p-2 mb-2";
+    card.dataset.id = e.id;
+
+    card.innerHTML = `
+      <div class="w-10 h-10">
+        <img class="w-full h-full object-cover rounded-full"
+             src="${e.photo}"
+             alt="profile">
+      </div>
+      <div class="flex-col text-center">
+        <h3 class="font-bold">${e.firstName} ${e.lastName}</h3>
+        <p>${e.role}</p>
+      </div>
+      <button><i class="fa-solid fa-user-minus cursor-pointer"></i></button>
+    `;
+
+    employeeList.appendChild(card);
+  });
+};
+
+renderEmployees();
