@@ -245,7 +245,7 @@ let ExistingEmployees = [
     assigned: false,
   },
   {
-    id: Date.now() + 3,
+    id: Date.now() + 9,
     firstName: "Ali",
     lastName: "Med",
     email: "mohammed.alaoui@example.com",
@@ -535,6 +535,96 @@ serverAddBtn.addEventListener("click", () => {
 
     div.querySelector("button").addEventListener("click", () => {
       assignEmployee(e.id, "server");
+    });
+
+    roomList.appendChild(div);
+  });
+
+  roomModal.classList.remove("hidden");
+});
+
+
+// ============= render security room =============
+const securityContainer = document.getElementById("security-employees");
+
+function renderSecurity() {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  securityContainer.innerHTML = "";
+
+  const inSercurity = employees.filter((e) => e.zone === "security");
+
+  inSercurity.forEach((e) => {
+    const card = document.createElement("div");
+    card.className =
+      "w-40 h-10 rounded-[5px] bg-gray-100 text-[10px] text-black shadow flex justify-between items-center p-3";
+
+    card.innerHTML = `
+      <div class="w-8 h-8">
+        <img class="w-full h-full object-cover rounded-full"
+            src="${e.photo}" alt="profile">
+      </div>
+      <div>
+        <p class="font-bold text-sm">${e.firstName}</p>
+        <p class="text-sm">${e.role}</p>
+      </div>
+      <button data-id="${e.id}">
+        <i class="fa-solid fa-x cursor-pointer text-red-600 text-[14px]"></i>
+      </button>
+    `;
+
+    card.querySelector("button").addEventListener("click", () => {
+      unassignEmployee(e.id);
+    });
+
+    securityContainer.appendChild(card);
+  });
+}
+
+
+// ============= securtiy selection list modal =============
+const securityAddBtn = document.getElementById("addBtn-security");
+
+securityAddBtn.addEventListener("click", () => {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  const validRole = ["Manager", "Security Guard"];
+  const available = employees.filter(
+    (e) => validRole.includes(e.role) && !e.assigned
+  );
+
+  const setInRoom = employees.filter((e) => e.zone === "security").length;
+  if (setInRoom >= 2) {
+    alert("Room is full");
+    return;
+  }
+
+  roomList.innerHTML = "";
+
+  available.forEach((e) => {
+    const div = document.createElement("div");
+    div.className =
+      "flex items-center justify-between bg-gray-100 rounded-lg p-2 text-[11px]";
+
+    div.innerHTML = `
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8">
+          <img class="w-full h-full object-cover rounded-full"
+              src="${e.photo}" alt="profile">
+        </div>
+        <div>
+          <p class="font-bold text-xs">${e.firstName} ${e.lastName}</p>
+          <p class="text-[10px] text-gray-600">${e.role}</p>
+        </div>
+      </div>
+      <button class="bg-green-500 hover:bg-green-600 text-white text-[10px] px-2 py-1 rounded"
+              data-id="${e.id}">
+        Add
+      </button>
+    `;
+
+    div.querySelector("button").addEventListener("click", () => {
+      assignEmployee(e.id, "security");
     });
 
     roomList.appendChild(div);
