@@ -451,8 +451,6 @@ conferenceAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-
-
 // ============= render server room =============
 const serverContainer = document.getElementById("server-employees");
 
@@ -489,7 +487,6 @@ function renderServer() {
     serverContainer.appendChild(card);
   });
 }
-
 
 // ============= server selection list modal =============
 const serverAddBtn = document.getElementById("addBtn-server");
@@ -543,7 +540,6 @@ serverAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-
 // ============= render security room =============
 const securityContainer = document.getElementById("security-employees");
 
@@ -580,7 +576,6 @@ function renderSecurity() {
     securityContainer.appendChild(card);
   });
 }
-
 
 // ============= securtiy selection list modal =============
 const securityAddBtn = document.getElementById("addBtn-security");
@@ -633,8 +628,6 @@ securityAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-
-
 // ============= render archive room =============
 const archiveContainer = document.getElementById("archive-employees");
 
@@ -671,7 +664,6 @@ function renderArchive() {
     archiveContainer.appendChild(card);
   });
 }
-
 
 // ============= archive selection list modal =============
 const archiveAddBtn = document.getElementById("addBtn-archive");
@@ -724,8 +716,6 @@ archiveAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
-
-
 // ============= staff archive room =============
 const staffContainer = document.getElementById("staff-employees");
 
@@ -762,7 +752,6 @@ function renderStaff() {
     staffContainer.appendChild(card);
   });
 }
-
 
 // ============= staff selection list modal =============
 const staffAddBtn = document.getElementById("addBtn-staff");
@@ -815,6 +804,90 @@ staffAddBtn.addEventListener("click", () => {
   roomModal.classList.remove("hidden");
 });
 
+// ============= reception archive room =============
+const receptionContainer = document.getElementById("reception-employees");
 
+function renderReception() {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
+  receptionContainer.innerHTML = "";
 
+  const inRoom = employees.filter((e) => e.zone === "reception");
+
+  inRoom.forEach((e) => {
+    const card = document.createElement("div");
+    card.className =
+      "w-40 h-10 rounded-[5px] bg-gray-100 text-[10px] text-black shadow flex justify-between items-center p-3";
+
+    card.innerHTML = `
+      <div class="w-8 h-8">
+        <img class="w-full h-full object-cover rounded-full"
+            src="${e.photo}" alt="profile">
+      </div>
+      <div>
+        <p class="font-bold text-sm">${e.firstName}</p>
+        <p class="text-sm">${e.role}</p>
+      </div>
+      <button data-id="${e.id}">
+        <i class="fa-solid fa-x cursor-pointer text-red-600 text-[14px]"></i>
+      </button>
+    `;
+
+    card.querySelector("button").addEventListener("click", () => {
+      unassignEmployee(e.id);
+    });
+
+    receptionContainer.appendChild(card);
+  });
+}
+
+// ============= reception selection list modal =============
+const receptionAddBtn = document.getElementById("addBtn-reception");
+
+receptionAddBtn.addEventListener("click", () => {
+  const employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+  const validRole = ["Manager", "Receptionist"];
+  const available = employees.filter(
+    (e) => validRole.includes(e.role) && !e.assigned
+  );
+
+  const setInRoom = employees.filter((e) => e.zone === "reception").length;
+  if (setInRoom >= 6) {
+    alert("Room is full");
+    return;
+  }
+
+  roomList.innerHTML = "";
+
+  available.forEach((e) => {
+    const div = document.createElement("div");
+    div.className =
+      "flex items-center justify-between bg-gray-100 rounded-lg p-2 text-[11px]";
+
+    div.innerHTML = `
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8">
+          <img class="w-full h-full object-cover rounded-full"
+              src="${e.photo}" alt="profile">
+        </div>
+        <div>
+          <p class="font-bold text-xs">${e.firstName} ${e.lastName}</p>
+          <p class="text-[10px] text-gray-600">${e.role}</p>
+        </div>
+      </div>
+      <button class="bg-green-500 hover:bg-green-600 text-white text-[10px] px-2 py-1 rounded"
+              data-id="${e.id}">
+        Add
+      </button>
+    `;
+
+    div.querySelector("button").addEventListener("click", () => {
+      assignEmployee(e.id, "reception");
+    });
+
+    roomList.appendChild(div);
+  });
+
+  roomModal.classList.remove("hidden");
+});
