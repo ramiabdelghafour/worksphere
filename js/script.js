@@ -891,3 +891,19 @@ receptionAddBtn.addEventListener("click", () => {
 
   roomModal.classList.remove("hidden");
 });
+
+let count = 0;
+let countManger = 0;
+ExistingEmployees.forEach(e =>{
+  
+  if(e.role === "IT Technician"){
+    count++;
+  }
+
+  if(e.role === "Manager"){
+    countManger++;
+  }
+
+})
+console.log(count);
+console.log(countManger);
